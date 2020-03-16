@@ -1,0 +1,67 @@
+<?php
+
+
+namespace frontend\controllers;
+
+
+use backend\models\Customer;
+use common\models\User;
+use frontend\models\ChangePassword;
+use Yii;
+use yii\web\Controller;
+
+class CustomerController extends  Controller
+{
+    public function actionIndex(){
+        $model = Customer::findOne(Yii::$app->user->getId());
+        return $this->render('index',[
+            'model'=>$model,
+        ]);
+    }
+    public function actionCreate(){
+        $model = Customer::findOne(['userId'=>Yii::$app->user->getId()]);
+        if($model){
+            return $this->redirect(['customer/index']);
+        }
+        $model = new Customer();
+        if(Yii::$app->request->isPost){
+            if($model->load(Yii::$app->request->post()) && $model->validate()){
+                $model->userId = Yii::$app->user->getId();
+                if($model->save(false)){
+                    return $this->redirect(['customer/index']);
+                }
+            }
+        }
+        return $this->render('create',[
+            'model'=>$model,
+        ]);
+    }
+    public function actionUpdate(){
+        $model = Customer::findOne(['userId'=>Yii::$app->user->getId()]);
+        if(Yii::$app->request->isPost){
+            if($model->load(Yii::$app->request->post()) && $model->save()){
+                return $this->redirect(['customer/index']);
+            }
+        }
+        return $this->render('update',[
+            'model'=>$model,
+        ]);
+    }
+    public function actionPassword(){
+        $model = new ChangePassword();
+        if(Yii::$app->request->isPost){
+            if( $model->load(Yii::$app->request->post()) && $model->validate()){
+                $user = User::findOne(['id'=>Yii::$app->user->getId()]);
+                $hash = Yii::$app->getSecurity()->generatePasswordHash($model->newPassword);
+                $user->password_hash = $hash;
+                if($user->save(false)){
+                    Yii::$app->session->setFlash('success','Change password success');
+                    return $this->redirect(['customer/index']);
+                }
+            }
+        }
+        return $this->render('password',[
+            'model'=>$model,
+        ]);
+    }
+}
