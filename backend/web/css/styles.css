@@ -1,0 +1,13 @@
+.img-select:hover{
+    cursor: pointer;
+}
+.img-select{
+    height: 200px;
+}
+.slider{
+    width: 100%;
+}
+.disable_link{
+    pointer-events: none;
+    cursor: default;
+}

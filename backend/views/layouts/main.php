@@ -1,0 +1,118 @@
+<?php
+
+/* @var $this \yii\web\View */
+/* @var $content string */
+
+use backend\assets\AppAsset;
+use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
+
+
+AppAsset::register($this);
+?>
+<?php $this->beginPage() ?>
+    <!DOCTYPE html>
+    <html lang="<?= Yii::$app->language ?>">
+    <head>
+        <meta charset="<?= Yii::$app->charset ?>">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?= Html::csrfMetaTags() ?>
+        <title><?= Html::encode('Admin') ?></title>
+        <?php $this->head() ?>
+        <script src="../ckeditor/ckeditor.js" ></script>
+        <script src="../ckfinder/ckfinder.js" ></script>
+    </head>
+    <body>
+    <?php $this->beginBody() ?>
+
+
+    <div class="wrapper">
+        <?php
+        $links = [];
+        if(!Yii::$app->user->isGuest){
+            if(Yii::$app->user->can('backend-Student-Index')){
+                $links[]= ['title'=>'Student','url'=>['student/index'],'icon'=>'user'];
+            }
+            $links[]= ['title'=>'Post','url'=>['post/index'],'icon'=>'book'];
+            $links[]= ['title'=>'Unit','url'=>['unit/index'],'icon'=>'unit'];
+            $links[]= ['title'=>'Category','url'=>['category/index']];
+            $links[]= ['title'=>'Brand','url'=>['brand/index']];
+            $links[]= ['title'=>'Supplier','url'=>['supplier/index']];
+            $links[]= ['title'=>'Product','url'=>['product/index']];
+            $links[]= ['title'=>'Slider','url'=>['slider/index']];
+            $links[]= ['title'=>'Order','url'=>['order/index']];
+        }
+        ?>
+        <?= \hosannahighertech\lbootstrap\widgets\SideBar::widget([
+            'header'=>[
+                'title'=>'Menu',
+                'url'=>['/site/index']
+            ],
+            'links'=>$links,
+        ]) ?>
+        <?php
+        $linksBar = [];
+        $linksBar[]=['label' => 'Home', 'url' => ['/site/index']];
+        if(!Yii::$app->user->isGuest){
+
+            if(Yii::$app->user->can('backend\modules\authorization-Roles-Index')){
+                $linksBar[]=['label' => 'Manage', 'url' => ['/authorization/roles']];
+            }
+            $linksBar[]=['label'=>'logout ('.Yii::$app->user->identity->username.' )','url'=>['site/logout'],'linkOptions' => ['data-method' => 'post']];
+        }
+
+        ?>
+        <div class="main-panel">
+            <?= \hosannahighertech\lbootstrap\widgets\NavBar::widget([
+                'theme'=>'red',
+                'brand'=>[
+                    'label'=>'Home Page'
+                ],
+                'links'=>$linksBar,
+            ]) ?>
+            <div class="content">
+                <div class="container-fluid">
+                    <?= $content ?>
+                </div>
+            </div>
+
+            <footer class="footer">
+<!--                <div class="container-fluid">-->
+<!--                    <nav class="pull-left">-->
+<!--                        <ul>-->
+<!--                            <li>-->
+<!--                                <a href="#">-->
+<!--                                    Home-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="#">-->
+<!--                                    Company-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="#">-->
+<!--                                    Portfolio-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="#">-->
+<!--                                    Blog-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </nav>-->
+<!--                    <p class="copyright pull-right">-->
+<!--                        &copy; --><?//= date('Y') ?><!-- <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web-->
+<!--                    </p>-->
+<!--                </div>-->
+            </footer>
+
+        </div>
+    </div>
+
+    <?php $this->endBody() ?>
+    </body>
+    </html>
+<?php $this->endPage() ?>
