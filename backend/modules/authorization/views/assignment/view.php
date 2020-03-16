@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
 use yii\widgets\DetailView;
 use \yii\helpers\Url;
 
@@ -10,10 +11,20 @@ use \yii\helpers\Url;
 $role = Yii::$app->getRequest()->getQueryParams('role')['role'];
 $this->title = $role.': '. $model->alias_name;
 $this->params['breadcrumbs'][] = ['label' => $role, 'url' => Url::to(['roles/view?id='.$role])];
+
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="manage-controller-view">
+    <?=
+    Breadcrumbs::widget([
+        'homeLink' => [
+            'label' => Yii::t('yii', 'Dashboard'),
+            'url' => Yii::$app->homeUrl,
+        ],
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ])
+    ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -2,9 +2,11 @@
 
 namespace backend\controllers;
 
+use backend\components\MyController;
 use Yii;
 use backend\models\Supplier;
 use backend\models\SupplierSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,21 +14,21 @@ use yii\filters\VerbFilter;
 /**
  * SupplierController implements the CRUD actions for Supplier model.
  */
-class SupplierController extends Controller
+class SupplierController extends MyController
 {
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
-        return [
+        return ArrayHelper::merge(parent::behaviors(), [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
             ],
-        ];
+        ]);
     }
 
     /**

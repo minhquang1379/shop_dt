@@ -2,6 +2,7 @@
 
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -14,6 +15,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="auth-item-view">
 
+    <?=
+    Breadcrumbs::widget([
+        'homeLink' => [
+            'label' => Yii::t('yii', 'Dashboard'),
+            'url' => Yii::$app->homeUrl,
+        ],
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ])
+    ?>
     <h1><?= Html::encode($this->title) ?></h1>
 
 

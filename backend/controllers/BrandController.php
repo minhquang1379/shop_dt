@@ -2,10 +2,12 @@
 
 namespace backend\controllers;
 
+use backend\components\MyController;
 use Yii;
 use backend\models\Brand;
 use backend\models\BrandSearch;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -14,21 +16,21 @@ use yii\web\UploadedFile;
 /**
  * BrandController implements the CRUD actions for Brand model.
  */
-class BrandController extends Controller
+class BrandController extends MyController
 {
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
-        return [
+        return ArrayHelper::merge(parent::behaviors(),[
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
             ],
-        ];
+        ]);
     }
 
     /**

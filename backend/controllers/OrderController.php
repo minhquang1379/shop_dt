@@ -2,12 +2,14 @@
 
 namespace backend\controllers;
 
+use backend\components\MyController;
 use backend\models\OrderDetail;
 use backend\models\OrderDetailSearch;
 use Yii;
 use backend\models\Order;
 use backend\models\OrderSearch;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -16,21 +18,21 @@ use yii\web\Response;
 /**
  * OrderController implements the CRUD actions for Order model.
  */
-class OrderController extends Controller
+class OrderController extends MyController
 {
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
-        return [
+        return ArrayHelper::merge(parent::behaviors(),[
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
             ],
-        ];
+        ]);
     }
 
     /**
