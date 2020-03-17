@@ -13,7 +13,7 @@ class BlogController extends BaseController
 {
 
     public function actionIndex(){
-        $query = Post::find()->orderBy('id','desc');
+        $query = Post::find()->orderBy(['id'=>SORT_DESC]);
         $count = $query->count();
         $pagination = new Pagination(['totalCount'=>$count,'pageSize'=>12]);
 

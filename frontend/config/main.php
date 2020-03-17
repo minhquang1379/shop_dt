@@ -64,6 +64,7 @@ return [
                 'productFieldPrice' => 'price',
             ],
         ],
+
     ],
     'params' => $params,
 ];

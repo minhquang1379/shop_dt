@@ -16,6 +16,7 @@ class AppAsset extends AssetBundle
         'css/owl.carousel.css',
         'css/style.css',
         'css/responsive.css',
+        'css/commentStyle.css',
     ];
     public $js = [
         'js/owl.carousel.min.js',

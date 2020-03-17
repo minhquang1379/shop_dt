@@ -84,13 +84,11 @@ class SiteController extends BaseController
      */
     public function actionIndex()
     {
-        $posts = Post::find()->select(['title','shortDescription','thumbnail'])->orderBy('id','desc')->limit(6)->all();
-        $products = Product::find()->select(['name','price','image','id','inStock'])->orderBy('id', 'desc')->limit(6)->all();
+        $products = Product::find()->select(['name','price','image','id','inStock'])->orderBy(['id'=>SORT_DESC])->limit(6)->all();
         $brands = Brand::find()->select(['image'])->limit(6)->all();
         $sliders = Slider::find()->where(['is_active'=>'1'])->all();
-        $blogs = Post::find()->orderBy('id','desc')->limit(3)->all();
+        $blogs = Post::find()->orderBy(['id'=>SORT_DESC])->limit(3)->all();
         return $this->render('index',[
-            'posts'=>$posts,
             'products'=>$products,
             'brands'=>$brands,
             'sliders'=>$sliders,
