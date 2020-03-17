@@ -87,6 +87,7 @@ class CartController extends Controller
         return $this->redirect(['cart/index']);
     }
     public function actionCheckout(){
+        //check is guest return to login for checkout
         if(\Yii::$app->user->isGuest){
             \Yii::$app->session->setFlash('danger','Please login to checkout your cart');
             return $this->redirect(['site/login']);
@@ -98,34 +99,61 @@ class CartController extends Controller
         $model->status = 1;
         $customer = Customer::findOne(['userId'=>\Yii::$app->user->getId()]);
         $cartItems = $cart->getItems();
+        //if user has info
         if($customer){
+            //get info and set to field
             $model->receive_name = $customer->name;
             $model->phone = $customer->phone;
             $model->address = $customer->address;
         }
+        //if request is post
         if(\Yii::$app->request->isPost){
             if($model->load(\Yii::$app->request->post()) && $model->validate()){
                 $model->create_at = time();
                 $transaction = \Yii::$app->getDb()->beginTransaction();
                 try {
-                    if($model->save(false)){
-                        foreach ($cartItems as $cartItem){
-                            $orderDetail = new OrderDetail();
-                            $orderDetail->orderId = $model->id;
-                            $orderDetail->productId  = $cartItem->getId();
-                            $orderDetail->quantity = $cartItem->getQuantity();
-                            $orderDetail->price = $cartItem->getPrice();
-                            if($orderDetail->save(false)){
-                                $item = Cartitems::findOne(['productId'=>$cartItem->getId(),'userId'=>\Yii::$app->user->getId()]);
-                                if($item){
-                                    $item->delete();
+                    $arrayProduct = [];
+                    foreach ($cartItems as $cartItem){
+                       $product = Product::findOne(['id'=>$cartItem->getId()]);
+                       //$quantity In cart > quantity product in stock
+                       if($product->inStock < $cartItem->getQuantity()){
+                            array_push($arrayProduct, $product);
+                            $cart->remove($product->id);
+                       }
+                    }
+                    if($cart->getTotalCost() > 0){
+                        $model->total = $cart->getTotalCost();
+                        if($model->save(false)){
+                            foreach ($cartItems as $cartItem){
+                                $product = Product::findOne(['id'=>$cartItem->getId()]);
+                                $orderDetail = new OrderDetail();
+                                $orderDetail->orderId = $model->id;
+                                $orderDetail->productId  = $cartItem->getId();
+                                $orderDetail->quantity = $cartItem->getQuantity();
+                                $orderDetail->price = $cartItem->getPrice();
+                                if($orderDetail->save(false)){
+                                    $item = Cartitems::findOne(['productId'=>$cartItem->getId(),'userId'=>\Yii::$app->user->getId()]);
+                                    $product->inStock -= $cartItem->getQuantity();
+                                    $product->save(false);
+                                    if($item){
+                                        $item->delete();
+                                    }
                                 }
                             }
+                            $model->sendMail();
+                            $cart->clear();
+                            $transaction->commit();
+                            return $this->redirect(['order/index']);
                         }
-                        $model->sendMail();
-                        $cart->clear();
-                        $transaction->commit();
-                        return $this->redirect(['order/index']);
+                    }
+                    if(!empty($arrayProduct)){
+                        $message = 'your product ';
+                        foreach($arrayProduct as $product){
+                            $message .= $product->name.', ';
+                        }
+                        $message .= ' not enough, please check your product';
+                        Yii::$app->session->setFlash('warning',$message);
+                        unset($cartItems);
                     }
                 }catch (Exception $exception){
                     $transaction->rollBack();

@@ -67,7 +67,7 @@ $this->params['breadcrumbs'] = $this->title;
 
                                                 <td class="product-quantity">
                                                     <div class="quantity buttons_added">
-                                                        <input type="number" name="quantity[]" size="4" class="input-text qty text" title="Qty" value="<?=$cartItem->getQuantity()?>" min="0" step="1">
+                                                        <input type="number" name="quantity[]" size="4" class="input-text qty text" title="Qty" value="<?=$cartItem->getQuantity()?>" min="0" step="1" max="<?= $product->inStock?>">
                                                         <input type="hidden" name="productId[]" value="<?=$product->id?>">
                                                         <input type="hidden" name="oldQuantity[]" value="<?=$cartItem->getQuantity()?>""  />
                                                     </div>
