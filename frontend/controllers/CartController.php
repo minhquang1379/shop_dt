@@ -31,13 +31,18 @@ class CartController extends Controller
         $cart = \Yii::$app->cart;
         $product = Product::findOne($id);
         $cart->add($product, $quantity);
+        $product->inCart += $quantity;
+        $product->save(false);
         \Yii::$app->session->setFlash('success','add '.$product->name.' successfully');
         return $this->redirect(['cart/index']);
     }
     public function actionDelete($id){
         if(!\Yii::$app->user->isGuest){
             $cartItem = Cartitems::findOne(['productId'=>$id]);
+            $product = Product::findOne(['id'=>$id]);
             if($cartItem){
+                $product->inCart -= $cartItem->getQuantity();
+                $product->save(false);
                 $cartItem->delete();
             }
         }
@@ -51,21 +56,28 @@ class CartController extends Controller
         $get = \Yii::$app->request->get();
         $quantity = $get['quantity'];
         $productIDs = $get['productId'];
+        $oldQuantitys = $get['oldQuantity'];
         if(count($quantity) == count($productIDs)){
             $cart = \Yii::$app->cart;
             for ($i = 0; $i < count($quantity); $i++){
                 $cartItem = $cart->getItem($productIDs[$i]);
+                $product = Product::findOne(['id'=>$productIDs[$i]]);
                 if($cartItem){
                     if($quantity[$i] == 0){
                         $item = Cartitems::findOne(['productId'=>$productIDs[$i],'userId'=>\Yii::$app->user->getId()]);
                         if($item){
+                            $product->inCart -= $oldQuantitys[$i];
                             $item->delete();
                         }
                         $cart->remove($productIDs[$i]);
                     }
                     if($cartItem->getQuantity() != $quantity[$i]) {
+                        $product->inCart -= $oldQuantitys[$i];
+                        $product->inCart += $quantity[$i];
+
                         $cartItem->setQuantity($quantity[$i]);
                     }
+                    $product->save(false);
                 }
             }
             \Yii::$app->session->setFlash('success','update cart successful');

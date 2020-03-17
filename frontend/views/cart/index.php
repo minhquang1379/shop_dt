@@ -35,7 +35,9 @@ $this->params['breadcrumbs'] = $this->title;
                                     <th class="product-price">Price</th>
                                     <th class="product-quantity">Quantity</th>
                                     <th class="product-subtotal">Total</th>
-                                    <th>&nbsp;</th>
+                                    <th>Status</th>
+                                    <th></th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -67,11 +69,19 @@ $this->params['breadcrumbs'] = $this->title;
                                                     <div class="quantity buttons_added">
                                                         <input type="number" name="quantity[]" size="4" class="input-text qty text" title="Qty" value="<?=$cartItem->getQuantity()?>" min="0" step="1">
                                                         <input type="hidden" name="productId[]" value="<?=$product->id?>">
+                                                        <input type="hidden" name="oldQuantity[]" value="<?=$cartItem->getQuantity()?>""  />
                                                     </div>
                                                 </td>
 
                                                 <td class="product-subtotal">
                                                     <span class="amount">$ <?=number_format($cartItem->getCost(),0,',','.')?></span>
+                                                </td>
+                                                <td>
+                                                    <?php if($product->inStock > 0){
+                                                        echo 'In Stock '.$product->inStock;
+                                                    }else{
+                                                        echo 'Out Of Stock';
+                                                    }?>
                                                 </td>
                                                 <td >
                                                     <a title="Remove this item" class="btn btn-danger" href="<?= Url::to(['cart/delete','id'=>$product->id])?>">Remove</a>
@@ -80,14 +90,14 @@ $this->params['breadcrumbs'] = $this->title;
                                             <?php $i++;
                                         endforeach;?>
                                         <tr>
-                                            <td class="actions" colspan="7">
+                                            <td class="actions" colspan="8">
                                                 <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken()?>">
                                                 <button type="submit" name="update_cart" class="btn btn-primary">Update Cart</button>
                                             </td>
                                         </tr>
                                     <?php else:?>
                                         <tr>
-                                            <td colspan="7">
+                                            <td colspan="8">
                                                 <div class="alert alert-warning"> Cart is empty</div>
                                                 <a href="<?= Url::to(['category/index'])?>" class="btn btn-primary">Shop Now</a>
                                             </td>

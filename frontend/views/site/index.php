@@ -41,7 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="product-f-image">
                                 <img src="<?= Url::to(Yii::$app->urlManagerBackend->baseUrl.'/product/'.$product->image, true)?>" alt="">
                                 <div class="product-hover">
-                                    <a href="<?= Url::to(['cart/add','id'=>$product->id])?>" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                    <?php if($product->inStock > 0):?>
+                                        <a href="<?= Url::to(['cart/add','id'=>$product->id])?>" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                    <?php else:?>
+                                        <a class="btn btn-danger" >Out Of Stock</a>
+                                    <?php endif;?>
                                     <a href="<?= Url::to(['product/index','id'=>$product->id])?>" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                 </div>
                             </div>

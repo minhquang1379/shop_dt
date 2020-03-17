@@ -46,7 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
                                         <input type="hidden" name="id" value="<?= $product->id?>">
                                     </div>
+                                    <?php if($product->inStock > 0):?>
                                     <button class="add_to_cart_button" type="submit">Add to cart</button>
+                                    <?php else:?>
+                                     <button class="btn btn-danger" >Out Of Stock</button>
+                                    <?php endif;?>
                                 </form>
 
                                 <div class="product-inner-category">
@@ -54,6 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                        <li>Category <span class="primary"><?=$product->category->name?></span></li>
                                        <li>Unit <span class="primary"><?=$product->unit->name?></span></li>
                                        <li>Brand <span class="primary"><?=$product->brand->name?></span></li>
+                                       <li>In Stock <span class="primary"><?=$product->inStock?></span></li>
                                    </ul>
                                 </div>
 
@@ -98,7 +103,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="product-f-image">
                                     <img class="img_same_cate"  src="<?= Url::to(Yii::$app->urlManagerBackend->baseUrl.'/product/'.$product->image, true)?>" alt="">
                                     <div class="product-hover">
-                                        <a href="<?= Url::to(['cart/add','id'=>$product->id])?>" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <?php if($product->inStock > 0):?>
+                                            <a href="<?= Url::to(['cart/add','id'=>$product->id])?>" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <?php else:?>
+                                            <a class="btn btn-danger"><i class="fas fa-times"></i>   Out Of Stock</a>
+                                        <?php endif;?>
                                         <a href="<?= Url::to(['product/index','id'=>$product->id])?>" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                     </div>
                                 </div>
