@@ -8,10 +8,27 @@ use backend\models\Customer;
 use common\models\User;
 use frontend\models\ChangePassword;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class CustomerController extends  Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access'=>[
+                'class'=>AccessControl::className(),
+                'rules'=>[
+                    [
+                        'actions'=>['index','create','update','password'],
+                        'allow'=>true,
+                        'roles'=>['@'],
+                    ]
+                ]
+            ]
+        ];
+    }
+
     public function actionIndex(){
         $model = Customer::findOne(Yii::$app->user->getId());
         return $this->render('index',[

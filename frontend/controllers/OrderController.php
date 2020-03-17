@@ -7,10 +7,27 @@ namespace frontend\controllers;
 use backend\models\Order;
 use backend\models\OrderDetail;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class OrderController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access'=>[
+                'class'=>AccessControl::className(),
+                'rules'=>[
+                    [
+                        'actions'=>['index','detail','delete','status'],
+                        'allow'=>true,
+                        'roles'=>['@'],
+                    ],
+                ]
+            ]
+        ];
+    }
+
     public function actionIndex(){
         $orders = Order::find()->where(['userId'=>Yii::$app->user->getId()])->andWhere(['!=','status',4])->all();
         return $this->render('index',[

@@ -10,6 +10,6 @@ $orderLink = Yii::$app->urlManager->createAbsoluteUrl(['order/index', 'token' =>
     <p>Hello <?= Html::encode($user->username) ?>,</p>
 
     <p>Your checkout success!!!</p>
-    <p>Total: <?=$cart->getTotalCost()?></p>
+    <p>Total: <?= number_format($cart->getTotalCost(),0,',','.')?></p>
     <p>Quantity of product: <?=$cart->getTotalCount()?></p>
 </div>
