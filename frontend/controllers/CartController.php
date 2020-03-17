@@ -97,30 +97,20 @@ class CartController extends Controller
         $model->total = $cart->getTotalCost();
         $model->userId = \Yii::$app->user->getId();
         $model->status = 1;
-        $customer = Customer::findOne(['userId'=>\Yii::$app->user->getId()]);
+        //set info if exists
+        $this->setInfo($model);
         $cartItems = $cart->getItems();
-        //if user has info
-        if($customer){
-            //get info and set to field
-            $model->receive_name = $customer->name;
-            $model->phone = $customer->phone;
-            $model->address = $customer->address;
-        }
         //if request is post
         if(\Yii::$app->request->isPost){
             if($model->load(\Yii::$app->request->post()) && $model->validate()){
                 $model->create_at = time();
                 $transaction = \Yii::$app->getDb()->beginTransaction();
                 try {
-                    $arrayProduct = [];
-                    foreach ($cartItems as $cartItem){
-                       $product = Product::findOne(['id'=>$cartItem->getId()]);
-                       //$quantity In cart > quantity product in stock
-                       if($product->inStock < $cartItem->getQuantity()){
-                            array_push($arrayProduct, $product);
-                            $cart->remove($product->id);
-                       }
-                    }
+                    //check quantity product in stock
+                    // delete in cart if not enough
+                    // save product in array and return
+                    $arrayProduct = $this->checkStock($cartItems, $cart);
+                    // if cart not empty
                     if($cart->getTotalCost() > 0){
                         $model->total = $cart->getTotalCost();
                         if($model->save(false)){
@@ -131,9 +121,13 @@ class CartController extends Controller
                                 $orderDetail->productId  = $cartItem->getId();
                                 $orderDetail->quantity = $cartItem->getQuantity();
                                 $orderDetail->price = $cartItem->getPrice();
+                                //if save success
                                 if($orderDetail->save(false)){
+                                    //item in database
                                     $item = Cartitems::findOne(['productId'=>$cartItem->getId(),'userId'=>\Yii::$app->user->getId()]);
+                                    //sub the quantity of product Stock
                                     $product->inStock -= $cartItem->getQuantity();
+                                    $product->inOrder += $cartItem->getQuantity();
                                     $product->save(false);
                                     if($item){
                                         $item->delete();
@@ -166,5 +160,27 @@ class CartController extends Controller
             'cartItems'=>$cartItems,
             'model'=>$model,
         ]);
+    }
+    public function setInfo(&$model){
+        $customer = Customer::findOne(['userId'=>\Yii::$app->user->getId()]);
+        //if user has info
+        if($customer){
+            //get info and set to field
+            $model->receive_name = $customer->name;
+            $model->phone = $customer->phone;
+            $model->address = $customer->address;
+        }
+    }
+    public function checkStock($cartItems, $cart){
+        $arrayProduct = [];
+        foreach ($cartItems as $cartItem){
+            $product = Product::findOne(['id'=>$cartItem->getId()]);
+            //$quantity In cart > quantity product in stock
+            if($product->inStock < $cartItem->getQuantity()){
+                array_push($arrayProduct, $product);
+                $cart->remove($product->id);
+            }
+        }
+        return $arrayProduct;
     }
 }

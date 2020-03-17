@@ -19,5 +19,16 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <div class="blog_content">
-
+    <h2 class="text-uppercase text-center">Welcome to Shopping Online</h2>
+    <div class="content_about">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab in inventore ipsum laborum officia optio pariatur quia. Assumenda consequuntur deserunt enim est ex facilis fugit hic perferendis perspiciatis soluta, voluptatibus?
+        <img src="../../web/img/imgAbout.jpg"  class="img-responsive" alt="">
+    </div>
+    <div class="contact_about text-center">
+        <ul>
+            <li><a href=""><i class="fab fa-facebook-square"></i></a></li>
+            <li><a href=""><i class="fab fa-twitter-square"></i></a></li>
+            <li><a href=""><i class="fab fa-youtube"></i></a></li>
+        </ul>
+    </div>
 </div>

@@ -1271,3 +1271,28 @@ span.star_off{
 .danger{
     color: #9c3328;
 }
+.content_about{
+    width: 80%;
+    min-height: 300px;
+    margin: 5% auto;
+    font-size: 120%;
+}
+.content_about img{
+    margin: 10% auto;
+}
+.contact_about{
+    width: 80%;
+    min-height: 60px;
+}
+.contact_about ul li{
+    font-size: 220%;
+    margin-left: 10%;
+}
+.contact_about ul li a{
+    color: black;
+}
+.contact_about a:hover i{
+    color: #2aabd2;
+    transform: scale(2);
+    transition: all 1s;
+}

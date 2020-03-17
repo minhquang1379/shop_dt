@@ -34,14 +34,30 @@ AppAsset::register($this);
             if(Yii::$app->user->can('backend-Student-Index')){
                 $links[]= ['title'=>'Student','url'=>['student/index'],'icon'=>'user'];
             }
-            $links[]= ['title'=>'Post','url'=>['post/index'],'icon'=>'book'];
-            $links[]= ['title'=>'Unit','url'=>['unit/index'],'icon'=>'unit'];
-            $links[]= ['title'=>'Category','url'=>['category/index']];
-            $links[]= ['title'=>'Brand','url'=>['brand/index']];
-            $links[]= ['title'=>'Supplier','url'=>['supplier/index']];
-            $links[]= ['title'=>'Product','url'=>['product/index']];
-            $links[]= ['title'=>'Slider','url'=>['slider/index']];
-            $links[]= ['title'=>'Order','url'=>['order/index']];
+            if(Yii::$app->user->can('backend-Post-Index')){
+                $links[]= ['title'=>'Post','url'=>['post/index'],'icon'=>'book'];
+            }
+            if(Yii::$app->user->can('backend-Unit-Index')){
+                $links[]= ['title'=>'Unit','url'=>['unit/index'],'icon'=>'unit'];
+            }
+            if(Yii::$app->user->can('backend-Category-Index')){
+                $links[]= ['title'=>'Category','url'=>['category/index']];
+            }
+            if(Yii::$app->user->can('backend-Brand-Index')){
+                $links[]= ['title'=>'Brand','url'=>['brand/index']];
+            }
+            if(Yii::$app->user->can('backend-Supplier-Index')){
+                $links[]= ['title'=>'Supplier','url'=>['supplier/index']];
+            }
+            if(Yii::$app->user->can('backend-Product-Index')){
+                $links[]= ['title'=>'Product','url'=>['product/index']];
+            }
+            if(Yii::$app->user->can('backend-Slider-Index')){
+                $links[]= ['title'=>'Slider','url'=>['slider/index']];
+            }
+            if(Yii::$app->user->can('backend-Order-Index')){
+                $links[]= ['title'=>'Order','url'=>['order/index']];
+            }
         }
         ?>
         <?= \hosannahighertech\lbootstrap\widgets\SideBar::widget([
