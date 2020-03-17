@@ -19,6 +19,8 @@ use Yii;
  */
 class Customer extends \yii\db\ActiveRecord
 {
+    const SCENARIO_CREATE = 'create';
+    const SCENARIO_UPDATE = 'update';
     /**
      * {@inheritdoc}
      */
@@ -37,6 +39,9 @@ class Customer extends \yii\db\ActiveRecord
             [['name', 'address'], 'string', 'max' => 255],
             ['phone','match','pattern'=>'/^[^a-zA-Z]*$/'],
             [['phone'],'string','max'=>12,'min'=>10],
+            [['image'],'image','skipOnEmpty'=>false,'on'=>self::SCENARIO_CREATE],
+            [['image'],'image','on'=>self::SCENARIO_UPDATE],
+
 
         ];
     }
@@ -53,6 +58,7 @@ class Customer extends \yii\db\ActiveRecord
             'phone' => 'Phone',
             'create_at' => 'Create At',
             'updated_at' => 'Updated At',
+            'image'=>'Avatar'
         ];
     }
 
@@ -64,5 +70,21 @@ class Customer extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'userId']);
+    }
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_UPDATE =>['name','address','phone','image'],
+            self::SCENARIO_CREATE =>['name','address','phone','image'],
+        ];
+    }
+    public function uploadImage(){
+        if($this->image){
+            $name = md5(time().$this->image->baseName);
+            $this->image->saveAs('upload/avatar/'.$name.'.'.$this->image->extension);
+            $this->image = $name.'.'.$this->image->extension;
+            return true;
+        }
+        return false;
     }
 }

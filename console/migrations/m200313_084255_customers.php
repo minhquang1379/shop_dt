@@ -17,6 +17,7 @@ class m200313_084255_customers extends Migration
             'name'=>$this->string(),
             'address'=>$this->string(),
             'phone'=>$this->string(),
+            'image'=>$this->string(),
             'create_at'=>$this->integer(),
             'updated_at'=>$this->integer(),
         ]);

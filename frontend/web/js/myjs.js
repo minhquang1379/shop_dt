@@ -48,4 +48,19 @@ $(document).ready(function () {
     $(function() {
         $('span.stars').stars();
     });
+    $('.fileBtn').on('change',function () {
+        console.log('ok');
+        readURL(this);
+    });
 });
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('.img-select').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}

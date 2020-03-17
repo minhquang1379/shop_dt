@@ -1,4 +1,7 @@
 <?php
+
+use yii\helpers\Html;
+
 $this->title = 'Profile';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,6 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'label'=>'Username',
                                         'value'=>function($model){
                                             return $model->user->username;
+                                        }
+                                ],
+                                [
+                                        'label'=>'Avatar',
+                                        'format'=>'html',
+                                        'value'=>function($model){
+                                            return Html::img(\yii\helpers\Url::to(['upload/avatar/'.$model->image]),['width'=>'150px']);
                                         }
                                 ],
                             ],

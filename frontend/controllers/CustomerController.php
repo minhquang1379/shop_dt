@@ -10,6 +10,7 @@ use frontend\models\ChangePassword;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 
 class CustomerController extends  Controller
 {
@@ -42,10 +43,16 @@ class CustomerController extends  Controller
         }
         $model = new Customer();
         if(Yii::$app->request->isPost){
-            if($model->load(Yii::$app->request->post()) && $model->validate()){
-                $model->userId = Yii::$app->user->getId();
-                if($model->save(false)){
-                    return $this->redirect(['customer/index']);
+            $model->scenario = Customer::SCENARIO_CREATE;
+            $model->load(Yii::$app->request->post());
+            $model->image = UploadedFile::getInstance($model,'image');
+            if($model->validate()){
+                if($model->uploadImage()){
+                    $model->create_at = time();
+                    $model->userId = Yii::$app->user->getId();
+                    if($model->save(false)){
+                        return $this->redirect(['customer/index']);
+                    }
                 }
             }
         }
@@ -56,9 +63,19 @@ class CustomerController extends  Controller
     public function actionUpdate(){
         $model = Customer::findOne(['userId'=>Yii::$app->user->getId()]);
         if(Yii::$app->request->isPost){
-            if($model->load(Yii::$app->request->post()) && $model->save()){
-                return $this->redirect(['customer/index']);
-            }
+            $model->scenario = Customer::SCENARIO_UPDATE;
+            $oldImage = $model->image;
+            $model->load(Yii::$app->request->post());
+            $model->image = UploadedFile::getInstance($model, 'image');
+           if($model->validate()){
+               if(!$model->uploadImage()){
+                    $model->image = $oldImage;
+               }
+               $model->updated_at = time();
+               if($model->save(false)){
+                   return $this->redirect(['customer/index']);
+               }
+           }
         }
         return $this->render('update',[
             'model'=>$model,

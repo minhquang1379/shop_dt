@@ -93,8 +93,8 @@ class Post extends \yii\db\ActiveRecord
         if($this->thumbnail){
             //hashing name of image by md5
             $name = md5(time().$this->thumbnail->baseName);
-            $this->thumbnail->saveAs('upload/post/'.$name.$this->thumbnail->extension);
-            $this->thumbnail = $name.$this->thumbnail->extension;
+            $this->thumbnail->saveAs('upload/post/'.$name.'.'.$this->thumbnail->extension);
+            $this->thumbnail = $name.'.'.$this->thumbnail->extension;
             return true;
         }else{
             return false;
