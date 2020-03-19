@@ -1344,3 +1344,7 @@ span.star_off{
 .img-select{
     height: 200px;
 }
+.see_comment{
+    cursor: pointer;
+    margin-left: 20%;
+}

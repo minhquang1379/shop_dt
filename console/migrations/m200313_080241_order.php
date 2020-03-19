@@ -20,6 +20,7 @@ class m200313_080241_order extends Migration
             'phone'=>$this->string(),
             'status'=>$this->integer(),
             'receive_name'=>$this->string(),
+            'is_delete'=>$this->integer()->defaultValue(0),
             'create_at'=>$this->integer(),
         ]);
         $this->addForeignKey('fk_order_user','order','userId','user','id');

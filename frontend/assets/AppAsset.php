@@ -27,6 +27,7 @@ class AppAsset extends AssetBundle
         'js/script.slider.js',
         'js/myjs.js',
         'js/jquery.raty.js',
+        'js/pusher.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

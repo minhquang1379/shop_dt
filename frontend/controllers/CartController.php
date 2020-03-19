@@ -42,7 +42,7 @@ class CartController extends Controller
             $product = Product::findOne(['id'=>$id]);
             if($cartItem){
                 $product->inCart -= $cartItem->getQuantity();
-                $product->save(false);
+                $product->save(foralse);
                 $cartItem->delete();
             }
         }
@@ -96,7 +96,7 @@ class CartController extends Controller
         $cart = \Yii::$app->cart;
         $model->total = $cart->getTotalCost();
         $model->userId = \Yii::$app->user->getId();
-        $model->status = 1;
+        $model->status = 0;
         //set info if exists
         $this->setInfo($model);
         $cartItems = $cart->getItems();

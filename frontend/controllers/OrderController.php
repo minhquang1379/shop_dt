@@ -29,7 +29,10 @@ class OrderController extends Controller
     }
 
     public function actionIndex(){
-        $orders = Order::find()->where(['userId'=>Yii::$app->user->getId()])->andWhere(['!=','status',4])->all();
+        $orders = Order::find()->where(['userId'=>Yii::$app->user->getId()])
+            ->andWhere(['!=','status',4])->andWhere(['!=','is_delete',1])
+            ->andWhere(['!=','is_delete',2])
+            ->all();
         return $this->render('index',[
             'orders'=>$orders,
         ]);
@@ -50,8 +53,8 @@ class OrderController extends Controller
     public function actionDelete($id){
         if(Yii::$app->request->isGet){
             $model = Order::findOne(['id'=>$id]);
-            if($model->status == 3){
-                $model->status = 4;
+            if($model->is_delete == 0){
+                $model->is_delete = 1;
             }
             $model->save(false);
             return $this->redirect(['order/index']);

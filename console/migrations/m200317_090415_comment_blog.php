@@ -22,6 +22,7 @@ class m200317_090415_comment_blog extends Migration
         ]);
         $this->addForeignKey('fk_comment_blog','comment_blog','blogId','post','id');
         $this->addForeignKey('fk_comment_user','comment_blog','userId','user','id');
+        $this->addForeignKey('fk_parent_blog','comment_blog','parentId','comment_blog','id');
     }
     /**
      * {@inheritdoc}
