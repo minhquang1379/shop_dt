@@ -5,6 +5,7 @@ namespace frontend\controllers;
 
 
 use backend\models\CommentBlog;
+use backend\models\Customer;
 use Pusher\Pusher;
 use yii\web\Controller;
 use yii\web\Response;
@@ -40,6 +41,7 @@ class CommentController extends Controller
                 $data['parentId'] = $parentId;
                 $data['view'] = $view;
                 $data['userId'] = $userId;
+                $data['blogId'] = $blogId;
                 $pusher->trigger('my-channel', 'my-event', $data);
                 \Yii::$app->response->format = Response::FORMAT_HTML;
                 return $view;
@@ -83,5 +85,14 @@ class CommentController extends Controller
                 ]);
             }
         }
+    }
+    public function actionForm(){
+        $userInfo = Customer::findOne(['userId'=>\Yii::$app->user->getId()]);
+        $get = \Yii::$app->request->get();
+        $parentId = $get['parentId'];
+        return $this->renderPartial('form',[
+            'userInfo'=>$userInfo,
+            'parentId'=>$parentId,
+        ]);
     }
 }

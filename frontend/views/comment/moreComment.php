@@ -4,13 +4,13 @@
 
 <!-- First Comment -->
 <?php foreach ($comments as $comment):?>
-<article class="row">
+<article class="row" >
     <div class="col-md-2 col-sm-2 hidden-xs">
         <figure class="thumbnail">
             <?php if($comment->getAvatar()):?>
                 <img class="img-responsive" src="<?= '../../web/upload/avatar/'.$comment->getAvatar()?>" />
             <?php else:?>
-                <img class="img-responsive" src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
+                <img class="img-responsive" src="https://img.thuthuatphanmem.vn/uploads/2018/09/19/avatar-facebook-chat-4_105604005.jpg" />
             <?php endif;?>
             <figcaption class="text-center"><?= $comment->user->username?></figcaption>
         </figure>
@@ -26,10 +26,18 @@
                         <?= $comment->content?>
                     </p>
                 </div>
-                <p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>
+                <p class="text-right"><a  class="btn btn-default btn-sm btnReply" id="<?= $comment->id?>" ><i class="fa fa-reply"></i> reply</a></p>
             </div>
+            <?php if(!empty($comment->commentBlogs)):?>
+                <a>ok</a>
+            <?php endif;?>
         </div>
+        <section class="comment-list" id="commentList_<?=$comment->id?>">
+
+        </section>
+<!--form-->
     </div>
 </article>
+
 <?php endforeach;?>
 

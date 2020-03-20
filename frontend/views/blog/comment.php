@@ -20,22 +20,8 @@ use \yii\helpers\Url;
                     'display'=>$display
            ])?>
         </section>
-        <?php if(!Yii::$app->user->isGuest):?>
-            <div class="col-md-2 col-sm-2 hidden-xs">
-                <figure class="thumbnail">
-                    <?php if(isset($userInfo)):?>
-                        <img class="img-responsive" src="<?= '../../web/upload/avatar/'.$userInfo->image?>" />
-
-                    <?php else:?>
-                        <img class="img-responsive" src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
-                    <?php endif?>
-                    <figcaption class="text-center"><?=Yii::$app->user->identity->username?></figcaption>
-                </figure>
-            </div>
-            <div class="col-md-10 col-sm-10">
-                <textarea class="comment_area" ></textarea> <br>
-                <div  class="btn btn-primary btn-enter" id="">Enter</div>
-            </div>
-        <?php endif;?>
+      <?= $this->render('/comment/form',[
+              'userInfo'=>$userInfo,
+      ])?>
     </div>
 </div>
