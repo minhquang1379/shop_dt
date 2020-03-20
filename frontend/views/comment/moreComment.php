@@ -29,7 +29,9 @@
                 <p class="text-right"><a  class="btn btn-default btn-sm btnReply" id="<?= $comment->id?>" ><i class="fa fa-reply"></i> reply</a></p>
             </div>
             <?php if(!empty($comment->commentBlogs)):?>
-                <a>ok</a>
+                <input type="hidden" id="countComment_<?=$comment->id?>" value="<?= $comment->getCommentBlogs()->count()?>">
+                <input type="hidden" id="displayComment_<?=$comment->id?>" value="5">
+                <a class="see_comment see_more_<?=$comment->id?>" id="<?= $comment->id?>">see more comment</a>
             <?php endif;?>
         </div>
         <section class="comment-list" id="commentList_<?=$comment->id?>">

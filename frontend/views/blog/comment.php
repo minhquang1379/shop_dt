@@ -10,8 +10,8 @@ use \yii\helpers\Url;
         <input type="hidden" id="countComment_0" value="<?= $count?>">
         <input type="hidden" id="displayComment_0" value="<?=$display?>">
 
-        <?php if($count > 5):?>
-            <a class="see_comment see_more_0">see more comment</a>
+        <?php if($count >0):?>
+            <a class="see_comment see_more_0" id="">see more comment</a>
         <?php endif;?>
 
         <section class="comment-list" id="commentList_0">

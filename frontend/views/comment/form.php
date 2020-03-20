@@ -13,7 +13,9 @@
         </figure>
     </div>
     <div class="col-md-10 col-sm-10">
-        <textarea class="comment_area" ></textarea> <br>
+        <textarea class="comment_area" id="<?= isset($parentId)? $parentId:'' ?>" ></textarea> <br>
         <div  class="btn btn-primary btn-enter" id="<?= isset($parentId)? $parentId:'' ?>">Enter</div>
     </div>
+<?php else:?>
+<h7 class="danger">Login to comment this blog</h7>
 <?php endif;?>

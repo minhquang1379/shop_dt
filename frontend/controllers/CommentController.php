@@ -55,11 +55,12 @@ class CommentController extends Controller
             $blogId = $get['blogId'];
             $count = $get['count'];
             $display = $get['display'];
+            $parentId = empty($get['parentId'])? null: $get['parentId'];
             $offset = $count - $display;
             if($offset >= 0){
                 $comments = CommentBlog::find()
                     ->where(['blogId'=>$blogId])
-                    ->andWhere(['parentId'=>null])
+                    ->andWhere(['parentId'=>$parentId])
                     ->limit(5)
                     ->offset($offset)
                     ->all();
@@ -73,7 +74,7 @@ class CommentController extends Controller
                 $temp = $count%5;
                 $comments = CommentBlog::find()
                     ->where(['blogId'=>$blogId])
-                    ->andWhere(['parentId'=>null])
+                    ->andWhere(['parentId'=>$parentId])
                     ->limit($temp)
                     ->offset(0)
                     ->all();

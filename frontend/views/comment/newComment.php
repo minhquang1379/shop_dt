@@ -6,7 +6,7 @@
             <?php if(!empty($newComment->getAvatar())):?>
                 <img class="img-responsive" src="<?= '../../web/upload/avatar/'.$newComment->getAvatar()?>" />
             <?php else:?>
-                <img class="img-responsive" src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
+                <img class="img-responsive" src="https://img.thuthuatphanmem.vn/uploads/2018/09/19/avatar-facebook-chat-4_105604005.jpg" />
             <?php endif;?>
             <figcaption class="text-center"><?= $newComment->user->username?></figcaption>
         </figure>
@@ -22,8 +22,16 @@
                         <?= $newComment->content?>
                     </p>
                 </div>
-                <p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>
+                <p class="text-right"><a  class="btn btn-default btn-sm btnReply" id="<?= $newComment->id?>" ><i class="fa fa-reply"></i> reply</a></p>
             </div>
+            <?php if(!empty($newComment->commentBlogs)):?>
+                <input type="hidden" id="countComment_<?=$newComment->id?>" value="<?= $newComment->getCommentBlogs()->count()?>">
+                <input type="hidden" id="displayComment_<?=$newComment->id?>" value="5">
+                <a class="see_comment see_more_<?=$newComment->id?>" id="<?= $newComment->id?>">see more comment</a>
+            <?php endif;?>
         </div>
+        <section class="comment-list" id="commentList_<?=$newComment->id?>">
+
+        </section>
     </div>
 </article>

@@ -1346,5 +1346,8 @@ span.star_off{
 }
 .see_comment{
     cursor: pointer;
-    margin-left: 20%;
+    margin-left: 12%;
+}
+.see_comment:hover{
+    text-decoration: none;
 }
