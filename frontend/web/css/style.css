@@ -831,7 +831,13 @@ input[type="submit"]:hover, button[type=submit]:hover {background-color: #222}
     color: #fff;
     padding: 6px 25px;display: inline-block
 }
-.add_to_cart_button:hover {background-color: #222;color: #fff;text-decoration: none}
+.add_to_cart_button:hover, .out_of_stock_button:hover {background-color: #222;color: #fff;text-decoration: none}
+.out_of_stock_button{
+    background: none repeat scroll 0 0 #d9534f;
+    border: #d43f3a;
+    color: #fff;
+    padding: 6px 25px;display: inline-block
+}
 form.cart {
     margin-bottom: 25px;
 }
@@ -1180,13 +1186,17 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 }
 .blog_content ul li{
     list-style: none;
-    display: inline-block;
+    display: block;
+}
+.active_icon{
+    color: #0a73bb !important;
 }
 .features i{
     color: #000000;
+    transition: all 0.5s;
 }
 .features i:hover{
-    color: #0f74a8;
+    color: #0a73bb;
     cursor: pointer;
 }
 .activeLike{
@@ -1350,4 +1360,24 @@ span.star_off{
 }
 .see_comment:hover{
     text-decoration: none;
+}
+.searchBox{
+    margin-top: 15%;
+}
+.searchBox input{
+    width: 75% !important;
+}
+.btnSearch{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+.border-right{
+    border-right: 1.5px solid rgba(2,29,48,0.15);
+}
+.d-inline{
+    display:  inline-block;
 }

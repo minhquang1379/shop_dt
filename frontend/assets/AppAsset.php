@@ -25,7 +25,8 @@ class AppAsset extends AssetBundle
         'js/main.js',
         'js/bxslider.min.js',
         'js/script.slider.js',
-        'js/myjs.js',
+        'js/commentBlog.js',
+        'js/reviewProduct.js',
         'js/jquery.raty.js',
         'js/pusher.min.js',
     ];

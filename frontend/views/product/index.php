@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?php if($product->inStock > 0):?>
                                     <button class="add_to_cart_button" type="submit">Add to cart</button>
                                     <?php else:?>
-                                     <button class="btn btn-danger" >Out Of Stock</button>
+                                     <div class="btn btn-danger" >Out Of Stock</div>
                                     <?php endif;?>
                                 </form>
 
@@ -81,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     <p>Your rating</p>
 
                                                     <div id="star"></div>
-                                                    <span class="stars">3.5</span>
+                                                    <span class="stars">5</span>
                                                 </div>
                                                 <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
                                                 <p><input type="submit" value="Submit"></p>

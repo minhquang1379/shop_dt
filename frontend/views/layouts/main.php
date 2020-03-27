@@ -65,13 +65,19 @@ AppAsset::register($this);
 <div class="site-branding-area">
     <div class="container">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="logo">
                     <h1><a href="<?=Url::to(['site/index'])?>"><img src="<?=Url::to(['img/logo.png'])?>"></a></h1>
                 </div>
             </div>
-
-            <div class="col-sm-6">
+            <div class="col-sm-4">
+                <form class="form-inline d-flex justify-content-center md-form form-sm searchBox" action="<?= Url::to(['/product/search'])?>">
+                    <input class="form-control form-control-sm mr-2 w-75" type="text" placeholder="Search"
+                           aria-label="Search" name="text">
+                    <button class="btnSearch" ><i class="fas fa-search" aria-hidden="true"></i></button>
+                </form>
+            </div>
+            <div class="col-sm-4">
                 <div class="shopping-item">
                     <a href="<?= Url::to(['cart/index'])?>">Cart<i class="fa fa-shopping-cart"></i>
                         <?php
@@ -200,12 +206,6 @@ if(!empty(Yii::$app->session->getAllFlashes())){
         </div>
     </div>
 </div> <!-- End footer bottom area -->
-
-<!-- Latest jQuery form server -->
-<script src="https://code.jquery.com/jquery.min.js"></script>
-
-<!-- Bootstrap JS form CDN -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <?php $this->endBody();?>
 </body>
 </html>

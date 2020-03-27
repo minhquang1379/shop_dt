@@ -21,6 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="created_at"><?= date('y-m-d H:i:s', $model->created_at)?></div>
     <div class="features">
         <ul>
+            <li>
+                <i class="fas fa-thumbs-up <?= isset($is_like) && $is_like != null? 'active_icon': ''?>" id="likeBtn"></i>
+                <div class="d-inline" id="showLike" ><?= isset($likes)? $likes: 0?></div>
+                Like </li>
             <li><?= $model->views?> views</li>
             <input type="hidden" value="<?=Yii::$app->user->id?>" id="userId">
             <input type="hidden" value="<?=$model->id?>" id="postId">

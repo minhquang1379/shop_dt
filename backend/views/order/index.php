@@ -46,12 +46,25 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label'=>'status',
                     'attribute'=>'status',
                     'format'=>'raw',
+                    'filter'=>function($model){
+                        $array =  $model->getcStatus();
+                    },
                     'headerOptions'=>['width'=>'15%'],
                     'value'=>function($model){
                         return Html::dropDownList('dropDown',$model->status,$model->getStatus(),[
                                 'onchange'=> "changeStatus($(this).val(), '$model->id')",
                         ]);
                     }
+            ],
+            [
+                'label'=>'Remove',
+                'attribute'=>'is_delete',
+                'format'=>'raw',
+                'headerOptions'=>['width'=>'15%'],
+                'value'=>function($model){
+                    return Html::dropDownList('dropDown',$model->is_delete,$model->getRemove()
+                    );
+                }
             ],
             [
                     'class' => 'yii\grid\ActionColumn',

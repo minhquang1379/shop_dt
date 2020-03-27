@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="single-sidebar">
                     <h2 class="sidebar-title text-center">Category</h2>
                     <?php if(isset($categories)){
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             </div>
 
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="product-content-right">
                     <?php if (isset($category)):?>
                         <h2 class="sidebar-title text-center"><?=$category->name?></h2>
@@ -51,7 +51,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                                 <div class="product-option-shop">
-                                    <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="<?= Url::to(['cart/add','id'=>$product->id])?>">Add to cart</a>
+                                    <?php if($product->inStock > 0):?>
+                                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="<?= Url::to(['cart/add','id'=>$product->id])?>">Add to cart</a>
+                                    <?php else:?>
+                                        <a class="out_of_stock_button" >Out Of Stock</a>
+                                    <?php endif;?>
                                 </div>
                             </div>
                         </div>

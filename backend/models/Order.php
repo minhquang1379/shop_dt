@@ -41,6 +41,7 @@ class Order extends \yii\db\ActiveRecord
             'class'=>'btn btn-primary disable_link'
         ],
     ];
+    public $isRemove;
     public $statusOrder;
     public function init()
     {
@@ -48,6 +49,8 @@ class Order extends \yii\db\ActiveRecord
         $this->statusOrder[1]='Processing';
         $this->statusOrder[2]='Shipped';
         $this->statusOrder[3]='Paid';
+        $this->isRemove[0]='None';
+        $this->isRemove[1]='Removed';
     }
 
     /**
@@ -131,6 +134,9 @@ class Order extends \yii\db\ActiveRecord
             ->send();
     }
     public function getStatus(){
-        return $this->statusOrder;
+        return array($this->statusOrder);
+    }
+    public function getRemove(){
+        return $this->isRemove;
     }
 }
