@@ -46,9 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label'=>'status',
                     'attribute'=>'status',
                     'format'=>'raw',
-                    'filter'=>function($model){
-                        $array =  $model->getcStatus();
-                    },
                     'headerOptions'=>['width'=>'15%'],
                     'value'=>function($model){
                         return Html::dropDownList('dropDown',$model->status,$model->getStatus(),[

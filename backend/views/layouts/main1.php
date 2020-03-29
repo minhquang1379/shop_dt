@@ -29,15 +29,20 @@ AppAsset::register($this);
         <?php
         $menuItems = [];
         if(!Yii::$app->user->isGuest){
-            if(Yii::$app->user->can('backend\modules\authorization-User-Index')){
-                $menuItems[] = ['title' => 'User', 'url' => ['/authorization/user']];
-            }if(Yii::$app->user->can('backend\modules\authorization-Roles-Index')){
-                $menuItems[] = ['title' => 'Authorization Roles', 'url' => ['/authorization/roles']];
-            }if(Yii::$app->user->can('backend\modules\manage-Item-Index')){
-                $menuItems[] = ['title' => 'Controller', 'url' => ['/manage/item']];
-            }if(Yii::$app->user->can('backend\modules\manage-Role-Index')){
-                $menuItems[] = ['title' => 'Mange Roles', 'url' => ['/manage/role']];
-            }
+            $menuItems[] = ['title' => 'User', 'url' => ['/authorization/user']];
+            $menuItems[] = ['title' => 'Authorization Roles', 'url' => ['/authorization/roles']];
+            $menuItems[] = ['title' => 'Controller', 'url' => ['/manage/item']];
+            $menuItems[] = ['title' => 'Mange Roles', 'url' => ['/manage/role']];
+            //open comment to use rbac
+//            if(Yii::$app->user->can('backend\modules\authorization-User-Index')){
+//                $menuItems[] = ['title' => 'User', 'url' => ['/authorization/user']];
+//            }if(Yii::$app->user->can('backend\modules\authorization-Roles-Index')){
+//                $menuItems[] = ['title' => 'Authorization Roles', 'url' => ['/authorization/roles']];
+//            }if(Yii::$app->user->can('backend\modules\manage-Item-Index')){
+//                $menuItems[] = ['title' => 'Controller', 'url' => ['/manage/item']];
+//            }if(Yii::$app->user->can('backend\modules\manage-Role-Index')){
+//                $menuItems[] = ['title' => 'Mange Roles', 'url' => ['/manage/role']];
+//            }
         }
         ?>
         <?= \hosannahighertech\lbootstrap\widgets\SideBar::widget([

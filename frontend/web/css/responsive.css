@@ -13,9 +13,29 @@ input[type="submit"], button[type="submit"] {
 } 
 .col-1, .col-2 {
   width: 293px;
-}    
-    
-    
+}
+.product-hover a{
+  font-size: 125%;
+  padding: 0;
+}
+.product-hover a.add-to-cart-link{
+    top: -35%;
+}
+.product-hover a.view-details-link{
+  bottom: -35%;
+}
+.single-product:hover .product-hover a.add-to-cart-link{
+  top: 12%;
+}
+.single-product:hover .product-hover a.view-details-link{
+   bottom: 12%;
+}
+  .product-f-image img {
+    height: 170px;
+  }
+  .blog-item a{
+    font-size: 80%;
+  }
 }
 
 /* Tablet Layout: 768px. */

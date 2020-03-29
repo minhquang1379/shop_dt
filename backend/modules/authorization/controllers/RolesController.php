@@ -15,7 +15,7 @@ use yii\filters\VerbFilter;
 /**
  * RoleController implements the CRUD actions for AuthItem model.
  */
-class RolesController extends MyController
+class RolesController extends Controller
 {
     /**
      * {@inheritdoc}

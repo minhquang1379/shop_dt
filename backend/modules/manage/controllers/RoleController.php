@@ -18,7 +18,7 @@ use function Sodium\add;
 /**
  * RoleController implements the CRUD actions for AuthItem model.
  */
-class RoleController extends MyController
+class RoleController extends Controller
 {
     public $itemAction;
     public $roleAction;

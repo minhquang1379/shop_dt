@@ -15,7 +15,7 @@ use yii\web\UploadedFile;
 /**
  * SliderController implements the CRUD actions for Slider model.
  */
-class SliderController extends MyController
+class SliderController extends Controller
 {
     /**
      * {@inheritdoc}

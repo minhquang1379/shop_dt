@@ -14,7 +14,7 @@ use yii\filters\VerbFilter;
 /**
  * SupplierController implements the CRUD actions for Supplier model.
  */
-class SupplierController extends MyController
+class SupplierController extends Controller
 {
     /**
      * {@inheritdoc}

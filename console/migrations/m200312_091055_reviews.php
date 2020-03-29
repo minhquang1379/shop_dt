@@ -14,17 +14,13 @@ class m200312_091055_reviews extends Migration
     {
         $this->createTable('reviews_product',[
             'id'=>$this->primaryKey(),
-            'name'=>$this->string(),
-            'email'=>$this->string(),
+            'userId'=>$this->integer(),
             'content'=>$this->text(),
             'rating'=>$this->integer(),
-            'likes'=>$this->integer(),
-            'dislike'=>$this->integer(),
-            'parentId'=>$this->integer(),
             'productId'=>$this->integer(),
-            'created_at'=>$this->time(),
+            'created_at'=>$this->integer(),
         ]);
-        $this->addForeignKey('fk_parent_review_product','reviews_product','parentId','reviews_product','id');
+        $this->addForeignKey('fk_reviews_product_user','reviews_product','userId','user','id','CASCADE');
     }
 
     /**

@@ -6,8 +6,10 @@ namespace frontend\controllers;
 
 use backend\models\Brand;
 use backend\models\Category;
+use backend\models\Customer;
 use backend\models\Post;
 use backend\models\Product;
+use backend\models\ReviewsProduct;
 use backend\models\Supplier;
 use yii\data\Pagination;
 use yii\helpers\Url;
@@ -18,11 +20,15 @@ class ProductController extends Controller
 
     public function actionIndex($id){
         $product = $this->findModel($id);
+        $reviews = ReviewsProduct::find()->where(['productId'=>$id])->all();
+        $userInfo = Customer::findOne(['userId'=>\Yii::$app->user->id]);
         if($product){
             $productInCate = Product::find()->where(['categoryId'=>$product->categoryId])->andwhere(['!=','id',$product->id])->limit(4)->all();
             return $this->render('index',[
                 'product'=>$product,
                 'productInCate'=>$productInCate,
+                'reviews'=>$reviews,
+                'userInfo'=>$userInfo,
             ]);
         }
         return $this->redirect(['category/index']);

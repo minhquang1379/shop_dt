@@ -168,7 +168,6 @@ function ajaxReply(parentId,replyBtn, parentFinal){
     $.ajax({
         url:'../comment/form',
         type:'GET',
-        dataType: 'json',
         data:{
             parentId: parentId
         },
@@ -177,7 +176,7 @@ function ajaxReply(parentId,replyBtn, parentFinal){
             parentFinal.append(data);
             textArea = $(parentFinal).find('.comment_area');
             $(textArea).focus();
-        }
+        },
     });
 }
 function ajaxStatusLike(blogId){

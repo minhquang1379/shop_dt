@@ -18,7 +18,7 @@ use yii\web\Response;
 /**
  * OrderController implements the CRUD actions for Order model.
  */
-class OrderController extends MyController
+class OrderController extends Controller
 {
     /**
      * {@inheritdoc}

@@ -16,7 +16,7 @@ use yii\web\UploadedFile;
 /**
  * BrandController implements the CRUD actions for Brand model.
  */
-class BrandController extends MyController
+class BrandController extends Controller
 {
     /**
      * {@inheritdoc}

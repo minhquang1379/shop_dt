@@ -17,7 +17,7 @@ use yii\filters\VerbFilter;
 /**
  * AssignmentController implements the CRUD actions for ManageController model.
  */
-class AssignmentController extends MyController
+class AssignmentController extends Controller
 {
     /**
      * {@inheritdoc}

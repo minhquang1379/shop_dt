@@ -18,7 +18,7 @@ use yii\web\Response;
 /**
  * ItemController implements the CRUD actions for ManageController model.
  */
-class ItemController extends MyController
+class ItemController extends Controller
 {
     public $data;
     public function __construct($id, $module, $config = [])

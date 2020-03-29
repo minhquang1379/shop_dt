@@ -19,7 +19,7 @@ use yii\web\UploadedFile;
 /**
  * PostController implements the CRUD actions for Post model.
  */
-class PostController extends MyController
+class PostController extends Controller
 {
     /**
      * {@inheritdoc}

@@ -134,7 +134,7 @@ class Order extends \yii\db\ActiveRecord
             ->send();
     }
     public function getStatus(){
-        return array($this->statusOrder);
+        return $this->statusOrder;
     }
     public function getRemove(){
         return $this->isRemove;

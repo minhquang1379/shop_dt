@@ -14,7 +14,7 @@ use yii\filters\VerbFilter;
 /**
  * UnitController implements the CRUD actions for Unit model.
  */
-class UnitController extends MyController
+class UnitController extends Controller
 {
     /**
      * {@inheritdoc}
